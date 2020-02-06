@@ -19,6 +19,7 @@ module.exports = function WorldBossHelper(mod) {
       mod.command.message('  /8 wbh alert - Turn popup alerts on/off');
       mod.command.message('  /8 wbh msg - Turn system messages on/off');
       mod.command.message('  /8 wbh mark - Turn boss markers on/off');
+      mod.command.message('  /8 wbh upload - Turn data upload on/off');
       mod.command.message('  /8 wbh clear - Attempt to clear markers');
       mod.command.message('  /8 wbh ui - Open ingame WB Timers UI');
     },
@@ -33,6 +34,10 @@ module.exports = function WorldBossHelper(mod) {
     mark() {
       mod.settings.marker = !mod.settings.marker;
       mod.command.message(mod.settings.marker ? 'Markers: enabled.' : 'Markers: disabled.');
+    },
+    upload() {
+      mod.settings.upload = !mod.settings.upload;
+      mod.command.message(mod.settings.upload ? 'Upload: enabled.' : 'Upload: disabled.');
     },
     clear() {
       mod.command.message('Markers cleared.');
@@ -86,7 +91,7 @@ module.exports = function WorldBossHelper(mod) {
     if (!mod.settings.enabled) return;
     if (mobIds.includes(event.gameId)) {
       if (mod.settings.alerted && bossName) {
-        if (event.type == 5) {
+        if (event.type == 5 && mod.settings.upload) {
           request.post('https://tera.zone/worldboss/upload.php', {
             form: {
               region: mod.region,
@@ -123,15 +128,18 @@ module.exports = function WorldBossHelper(mod) {
   })
 
   function spawnItem(loc, gameId) {
-    mod.send('S_SPAWN_DROPITEM', 6, {
+    mod.send('S_SPAWN_DROPITEM', 8, {
       gameId: gameId*100n,
       loc: loc,
       item: mod.settings.itemId,
       amount: 1,
-      expiry: 600000,
-      owners: [{
-        id: 0
-      }]
+      expiry: 300000,
+      explode:false,
+      masterwork:false,
+      enchant:0,
+      source:0,
+      debug:false,
+      owners: [{id: 0}]
     });
   }
 

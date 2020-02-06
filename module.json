@@ -4,15 +4,15 @@
     "description": "A tera-proxy module that notifies you if a World Boss is near you.",
     "version": "1.0",
     "donationUrl": "",
-    "supportUrl": "https://github.com/mopihu/world-boss-helper/issues",
+    "supportUrl": "https://github.com/tera-tools/world-boss-helper/issues",
     "drmKey": "",
-    "servers": ["https://raw.githubusercontent.com/mopihu/world-boss-helper/master/"],
+    "servers": ["https://raw.githubusercontent.com/tera-tools/world-boss-helper/master/"],
     "options": {
         "niceName": "WorldBossHelper",
         "guiName": "World Boss Helper",
         "loadOn": "versioncheck",
         "reloadable": true,
-        "settingsVersion": 1,
+        "settingsVersion": 2,
         "settingsFile": "config.json",
         "settingsMigrator": "settings.js",
         "settingsAutosaveOnClose": true

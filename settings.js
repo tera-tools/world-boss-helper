@@ -5,6 +5,7 @@ const DefaultSettings = {
   "alerted": true,
   "messager": true,
   "marker": true,
+  "upload": true,
   "itemId": 98260,
 }
 
