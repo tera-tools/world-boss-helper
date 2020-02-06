@@ -20,12 +20,18 @@ A `tera-proxy` module that aims to help with searching for and keeping track of 
 ### `wbh mark`
 - Toggle markers on/off
 - Default is on
+### `wbh upload`
+- Toggle data upload on/off
+- Default is on
 ### `wbh clear`
 - Attempts to clear markers
 ### `wbh ui`
 - Shows timers via in game browser
 
 ## Changelog
+### 2020-02-05
+- Updated for version 80+
+- Added option to disable upload
 ### 2018-12-15
 - Updated to BigInt/NextGen
 ### 2018-09-17
