@@ -1,5 +1,5 @@
 const Vec3 = require('tera-vec3');
-const request = require('request');
+const fetch = require('node-fetch');
 const bosses = require('./bosses.json');
 
 module.exports = function WorldBossHelper(mod) {
@@ -92,20 +92,22 @@ module.exports = function WorldBossHelper(mod) {
     if (mobIds.includes(event.gameId)) {
       if (mod.settings.alerted && bossName) {
         if (event.type == 5 && mod.settings.upload) {
-          request.post('https://tera.zone/worldboss/upload.php', {
-            form: {
-              region: mod.region,
-              serverId: mod.game.me.serverId,
-              boss: bossName,
-              channel: currentChannel,
-            }
-          }, function(err, httpResponse, body) {
-            if (err) {
-              console.error(err);
-            } else {
-              console.log('[world-boss] ' + body);
-            }
-          });
+          fetch('https://tera.zone/worldboss/upload.php', {
+            method: 'post',
+            body: JSON.stringify({
+              form: {
+                region: mod.region,
+                serverId: mod.game.me.serverId,
+                boss: bossName,
+                channel: currentChannel,
+              }
+            }),
+            headers: { 'Content-Type': 'application/json' },
+          })
+          .then(res => res.json())
+          .then(json => console.log(json))
+          .catch(err => console.error(err));
+
           if (mod.settings.alerted) {
             notice(bossName + ' is dead!');
           }
